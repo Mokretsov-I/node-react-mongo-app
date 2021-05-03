@@ -4,6 +4,10 @@ export const TasksList = ({taskData}) => {
 
     if(taskData.length === 0) return <p>Задач пока нет</p> 
 
+    const editTask = (e) => {
+        console.log(e.target.parentElement.parentElement.getAttribute('data-id'))
+    }
+
     return(
         <div>
 
@@ -12,23 +16,27 @@ export const TasksList = ({taskData}) => {
                 <tr>
                     <th>№</th>
                     <th>Название</th>
-                    <th>Дата добавления</th>
-                    <th>Дата завершения</th>
+                    <th className='center'>Дата добавления</th>
+                    <th className='center'>Дата завершения</th>
                     <th>Коммит</th>
-                    <th>Статус завершения</th>
+                    <th className='center'>Статус завершения</th>
                 </tr>
                 </thead>
 
                 <tbody>
                     {taskData.map((task, i) => {
                         return (
-                            <tr id={ task._id }>
+                            <tr key={ task._id } data-id={ task._id }>
                                 <td>{ i + 1 }</td>
-                                <td>{ task.name }</td>
-                                <td>{ new Date(task.date).toLocaleDateString() }</td>
-                                <td>{ task.finelDate && new Date(task.finelDate).toLocaleDateString() }</td>
-                                <td>{ task.commit }</td>
-                                <td><span><i className="material-icons">check</i></span></td>
+                                <td><p>{ task.name }</p></td>
+                                <td className='center'><p>{ new Date(task.date).toLocaleDateString() }</p></td>
+                                <td className='center'><p>{ task.finelDate && new Date(task.finelDate).toLocaleDateString() }</p></td>
+                                <td><p>{ task.commit }</p></td>
+                                <td className='center'><span><i className={'material-icons' + (task.isComplite ? ' complite' : '')}>check</i></span></td>
+                                <td className='control'>
+                                    <i className='material-icons' onClick={editTask}>create</i>
+                                    <i className='material-icons'>close</i>
+                                </td>
                             </tr>
                         )
                     })}

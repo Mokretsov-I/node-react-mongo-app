@@ -44,3 +44,55 @@ a.projectCard h5 {
     margin: 0;
     line-height: 1;
 }
+
+/* projectDetail style */
+.projectDetail table tr td p{
+    margin: 0;
+}
+
+.projectDetail table tr td span i {
+    background-color: #bdbdbd;
+    border-radius: 50%;
+    padding: 5px;
+    color: #bbdefb;
+    cursor: pointer;
+    user-select: none;
+    transition: .2s all linear;
+}
+
+.projectDetail table tr td span i:hover,
+.projectDetail table tr td span i.complite
+{
+    background-color: #4caf50;
+    color: #fff;
+}
+
+.projectDetail table tr td span i {
+    background-color: #bdbdbd;
+    border-radius: 50%;
+    padding: 5px;
+    color: #bbdefb;
+    cursor: pointer;
+    user-select: none;
+    transition: .2s all;
+}
+
+.projectDetail table tr td.control {
+    display: flex;
+    position: absolute;
+}
+
+.projectDetail table tr td.control i {
+    cursor: pointer;
+    user-select: none;
+    margin-left: 5px;
+    display: none;
+}
+
+.projectDetail table tr:hover  td.control i {
+    display: block;
+}
+
+.projectDetail table tr:hover {
+    background-color: rgba(178, 223, 219, .3);
+}

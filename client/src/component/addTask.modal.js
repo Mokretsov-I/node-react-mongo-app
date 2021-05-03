@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
 import { useHttp } from '../hooks/http.hook'
 
-export const TaskModal = () => {
+export const TaskModal = ({updateData}) => {
     const {loading, request} = useHttp()
     const auth = useContext(AuthContext)
     const refModal = useRef(null)
@@ -21,7 +21,10 @@ export const TaskModal = () => {
         const data = await request(`/api/project/${projectId}/createTask`, 'POST', {...form}, {
             Authorization: `Bearer ${auth.token}`
         })
-        if(data) window.M.Modal.getInstance(refModal.current).close()
+        if(data) {
+            window.M.Modal.getInstance(refModal.current).close()
+            updateData()
+        }
     }
 
     useEffect(() => {
@@ -35,7 +38,7 @@ export const TaskModal = () => {
 
             <div id="addTask" className="modal" ref={refModal}>
                 <div className="modal-header right">
-                    <a href="#!" className="modal-close"><i className="material-icons" style={{margin: '10px 15px'}}>close</i></a>
+                    <span className="modal-close"><i className="material-icons" style={{margin: '10px 15px'}}>close</i></span>
                 </div>
                 <div className="modal-content">
                     <div className="input-field">
@@ -48,7 +51,7 @@ export const TaskModal = () => {
                             onChange={changeHandler}
                             value={form.name}
                         />
-                        <label htmlFor="title">Название проекта</label>
+                        <label htmlFor="title">Название задачи</label>
                     </div>
                     <div className="input-field">
                         <input 

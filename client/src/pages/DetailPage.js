@@ -32,7 +32,7 @@ export const DetailPage = () => {
 
     return(
         <>
-            <ProjectsCard projectData={project} taskData={tasks} />
+            <ProjectsCard projectData={project} taskData={tasks} updateData={fetching} />
         </>
     )
 }

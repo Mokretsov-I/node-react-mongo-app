@@ -3,7 +3,7 @@ import { TaskModal } from './addTask.modal'
 import { Loader } from './Loader'
 import { TasksList } from './TasksList'
 
-export const ProjectsCard = ({ projectData, taskData }) => {
+export const ProjectsCard = ({ projectData, taskData, updateData }) => {
     return(
         <div className='projectDetail' style={{marginTop: '2rem'}}>
             <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem'}}>
@@ -21,9 +21,9 @@ export const ProjectsCard = ({ projectData, taskData }) => {
             <div className='center'>
                 <h3>Задачи</h3>
 
-                { taskData ? < TasksList taskData={taskData}/> : <Loader/> }
+                { taskData ? < TasksList taskData={taskData} /> : <Loader/> }
 
-                <div style={{margin: '15px 0'}}><TaskModal /></div>
+                <div style={{margin: '15px 0'}}><TaskModal updateData={updateData}/></div>
             </div>
 
         </div>
