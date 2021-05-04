@@ -18,7 +18,7 @@ export const TaskModal = ({updateData}) => {
     }
 
     const createHandler = async () => {
-        const data = await request(`/api/project/${projectId}/createTask`, 'POST', {...form}, {
+        const data = await request(`/api/task/${projectId}/createTask`, 'POST', {...form}, {
             Authorization: `Bearer ${auth.token}`
         })
         if(data) {

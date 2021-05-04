@@ -45,24 +45,4 @@ router.get('/:id', auth, async (req, res) => {
     }
 })
 
-router.post('/:id/createTask', auth, async (req, res) => {
-    try  {
-        const {name, finelDate} = req.body
-
-        if(!name) {
-            return res.status(500).json({message: 'Неверное название задачи'})
-        }
-
-        const task = new TaskModel({
-            name, finelDate, task: req.params.id
-        })
-
-        await task.save()
-
-        res.status(201).json({task})
-    } catch(e) {
-        res.status(500).json({ massage: 'Что-то пошло не так, попробуйте снова' })
-    }
-})
-
 module.exports = router
