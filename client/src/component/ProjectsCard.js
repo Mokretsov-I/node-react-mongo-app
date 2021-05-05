@@ -25,7 +25,6 @@ export const ProjectsCard = ({ projectData, taskData, updateData }) => {
 
                 <div style={{margin: '15px 0'}}><TaskModal updateData={updateData}/></div>
             </div>
-
         </div>
     )
 }

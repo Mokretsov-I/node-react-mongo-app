@@ -17,20 +17,34 @@ export const TasksList = ({taskData}) => {
 
     const editTask = (e) => {
         let editRow = e.target.parentElement.parentElement
-        // let date = editRow.querySelector('[data-field="finelDate"]').textContent.split('.')
-        // date = `${date[2]}.${date[1]}.${date[0]}`
         setValue({
             id: editRow.getAttribute('data-id'),
             name: editRow.querySelector('[data-field="name"]').textContent,
             finelDate: editRow.querySelector('[data-field="finelDate"]').textContent,
             commit: editRow.querySelector('[data-field="commit"]').textContent,
-            isComplite: false
+            isComplite: editRow.querySelector('td span i.material-icons').classList.contains('complite')
         })
         setIsChange(true)
     }
 
+    const toggleComplite = async (e) => {
+        setValue({
+            ...value,
+            id: e.target.parentElement.parentElement.parentElement.getAttribute('data-id'),
+            isComplite: !e.target.classList.contains('complite')
+        })
+        if(value.id) {
+            try {
+                const data = await request('/api/task/editTask/', 'POST', value, {
+                    Authorization: `Bearer ${token}`
+                })
+                console.log(data)
+            } catch(e) {}
+        }
+    }
+
     const saveTask = async () => {
-        if(value.id && value.name) {
+        if(value.id) {
             try {
                 const data = await request('/api/task/editTask/', 'POST', value, {
                     Authorization: `Bearer ${token}`
@@ -50,7 +64,6 @@ export const TasksList = ({taskData}) => {
 
     return(
         <div>
-
             <table>
                 <thead>
                 <tr>
@@ -86,7 +99,11 @@ export const TasksList = ({taskData}) => {
                                         ? <input name='commit' value={value.commit} onChange={changeHandler}/>
                                         : <p data-field='commit'>{ task.commit }</p>}
                                 </td>
-                                <td className='center'><span><i className={'material-icons' + (task.isComplite ? ' complite' : '')}>check</i></span></td>
+                                <td className='center'>
+                                    <span>
+                                        <i onClick={toggleComplite} className={'material-icons' + (task.isComplite ? ' complite' : '')}>check</i>
+                                    </span>
+                                </td>
                                 <td className='control'>
                                     <i className='material-icons' onClick={editTask}>create</i>
                                     <i className='material-icons' onClick={saveTask}>save</i>
@@ -97,7 +114,6 @@ export const TasksList = ({taskData}) => {
                     })}
                 </tbody>
             </table>
-
         </div>
     )
 }
